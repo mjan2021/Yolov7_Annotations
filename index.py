@@ -12,14 +12,18 @@ cap = cv2.VideoCapture(video_path)
 
 file = open("./yolov8_annotations", "w+")
 	
+total_frames =  int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+counter += 0
 while True:
 	_, frame = cap.read()
     	if not _:
         	break
-
+	counter += 1
     	dets, img_info = detector.detect(frame, filter_classes=filter_classes)
 
-    	bbox_xyxy = dets[:, :4]
+	print(f"Frame {counter} / {total_frames}, total objects: {len(class_ids)}")
+    	
+	bbox_xyxy = dets[:, :4]
     	scores = dets[:, 4]
     	class_ids = dets[:, 5]
 
