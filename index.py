@@ -10,13 +10,14 @@ filter_classes = ['car'] # Set to None to detect all classes
 
 cap = cv2.VideoCapture(video_path)
 
-file = open("./yolov8_annotations", "w+")
+file = open("./yolov8_annotations", "a+")
 	
 total_frames =  int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 counter += 0
 while True:
 	_, frame = cap.read()
     	if not _:
+		file.close()
         	break
 	counter += 1
     	dets, img_info = detector.detect(frame, filter_classes=filter_classes)
@@ -34,6 +35,8 @@ while True:
     	#frame = utils.draw_boxes(frame, bbox_xyxy, class_ids=class_ids)
 
     	#cv2.imshow('result', frame)
-
+	
     	if cv2.waitKey(25) & 0xFF == ord('q'):
+		file.close()
         	break
+	file.close()
